@@ -8,7 +8,7 @@ A fully offline, PWA habit tracker built for personal use. No login, no server, 
 ## 📁 Files to Upload to GitHub
 
 ```
-index.html      ← rename habit.html to this
+index.html      ← Main Core File
 manifest.json   ← PWA manifest
 sw.js           ← Service worker (offline support)
 icon-192.png    ← App icon (generate from the app or use any 192x192 PNG)
@@ -16,14 +16,14 @@ icon-512.png    ← App icon large (512x512 PNG)
 ```
 
 > **Note:** `icon-192.png` and `icon-512.png` are auto-generated inside the app using Canvas.  
-> To export them: open the app in Chrome → DevTools → Console → type `drawAndDownloadIcons()` → two PNG files will download.
+> 
 
 ---
 
 ## 🚀 GitHub Pages Setup
 
 1. Create a new **public** repository on GitHub
-2. Upload all 5 files above (rename `habit.html` → `index.html`)
+2. Upload all 5 files above. 
 3. Go to **Settings → Pages**
 4. Source: `Deploy from branch` → Branch: `main` → Folder: `/ (root)`
 5. Click **Save** — wait ~60 seconds
