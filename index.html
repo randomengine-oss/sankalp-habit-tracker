@@ -43,9 +43,12 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;margin:0;padding:0;overflow:hidden;background:var(--bg2);}body{color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;}
 .app{background:var(--bg);width:100%;max-width:430px;position:fixed;top:0;bottom:0;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;box-shadow:0 0 60px rgba(0,0,0,0.2);transition:background .3s;overflow:hidden;}
-.scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 18px calc(110px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:16px;scrollbar-width:none;}
-.scroll-tab{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:58px 18px calc(110px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:16px;scrollbar-width:none;}
+.scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 18px 32px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none;}
+.scroll-tab{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:58px 18px 32px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none;}
 .scroll-tab::-webkit-scrollbar{display:none;}
+/* Tab scroll children spacing */
+.settings-sec,.analytics-hero,.bar-chart-wrap,.heatmap-wrap,.streak-table,.coin-hero,.how-box,.vault-item,.how-box,.btn-wa,.ai-box,.task-list{margin-bottom:16px;}
+
 .scroll::-webkit-scrollbar{display:none;}
 .hidden{display:none!important;}
 h1{margin:0;font-size:29px;font-weight:800;letter-spacing:-0.8px;}
@@ -77,11 +80,11 @@ select.input{appearance:none;-webkit-appearance:none;background-image:url("data:
 /* ═══════════════════════════════════════════
    SETUP SCREEN
 ═══════════════════════════════════════════ */
-.setup-screen{position:absolute;inset:0;background:var(--bg);z-index:300;display:flex;flex-direction:column;overflow-y:auto;}
+.setup-screen{position:absolute;inset:0;background:var(--bg);z-index:300;display:flex;flex-direction:column;overflow:hidden;}
 .setup-head{padding:52px 20px 22px;background:linear-gradient(160deg,#1C1C1E 0%,#2C2C2E 100%);color:#fff;flex-shrink:0;}
 .setup-head h1{color:#fff;margin-bottom:6px;}
 .setup-head p{color:rgba(255,255,255,.55);font-size:14px;margin:0;}
-.setup-body{padding:20px;display:flex;flex-direction:column;gap:14px;flex:1;}
+.setup-body{padding:20px;display:flex;flex-direction:column;gap:14px;flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 .card{background:var(--card);border-radius:18px;padding:18px;box-shadow:0 2px 14px var(--shadow);transition:background .3s;}
 
 /* Category selector */
@@ -338,7 +341,7 @@ input:checked + .toggle-slider:before{transform:translateX(18px);}
 /* ═══════════════════════════════════════════
    BOTTOM NAV
 ═══════════════════════════════════════════ */
-.bot-nav{position:absolute;bottom:0;left:0;right:0;flex-shrink:0;padding:0 0 max(20px, env(safe-area-inset-bottom));height:calc(80px + env(safe-area-inset-bottom));background:var(--nav-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;z-index:100;}
+.bot-nav{flex-shrink:0;padding:0 0 max(20px,env(safe-area-inset-bottom));height:calc(60px + max(20px,env(safe-area-inset-bottom)));background:var(--nav-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:flex-start;padding-top:8px;z-index:100;}
 .nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--nav-off);cursor:pointer;transition:color .2s;width:25%;padding-top:8px;}
 .nav-item svg{width:24px;height:24px;fill:currentColor;transition:transform .2s;}
 .nav-item span{font-size:10px;font-weight:700;letter-spacing:.3px;}
@@ -543,7 +546,7 @@ input:checked + .toggle-slider:before{transform:translateX(18px);}
   </div>
 
   <!-- ── SCROLLABLE TASK AREA ONLY ── -->
-  <div class="scroll" id="scroll-today" style="padding-top:8px;padding-left:18px;padding-right:18px;padding-bottom:110px;" onscroll="onTodayScroll(this)">
+  <div class="scroll" id="scroll-today" style="flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 18px 32px 18px;" onscroll="onTodayScroll(this)">
     <ul class="task-list" id="task-list"></ul>
 
     <div class="ai-box hidden" id="ai-box">
@@ -560,8 +563,8 @@ input:checked + .toggle-slider:before{transform:translateX(18px);}
 
 <!-- ═══════════ TAB: ANALYTICS ═══════════ -->
 <div id="tab-analytics" class="hidden" style="display:none;flex-direction:column;flex:1;min-height:0;">
-  <div class="scroll-tab">
-    <h1>Analytics 📊</h1>
+  <div style="flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:58px 18px 32px;">
+    <h1 style="margin-bottom:16px;">Analytics 📊</h1>
     <div class="analytics-hero">
       <div class="lbl" style="color:rgba(255,255,255,.5);">This Month</div>
       <div class="hero-row">
@@ -603,8 +606,8 @@ input:checked + .toggle-slider:before{transform:translateX(18px);}
 
 <!-- ═══════════ TAB: VAULT ═══════════ -->
 <div id="tab-vault" class="hidden" style="display:none;flex-direction:column;flex:1;min-height:0;">
-  <div class="scroll-tab">
-    <h1>The Vault 🏆</h1>
+  <div style="flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:58px 18px 32px;">
+    <h1 style="margin-bottom:16px;">The Vault 🏆</h1>
     <div class="coin-hero">
       <div class="lbl">Total Coins</div>
       <div class="amount" id="coin-display">🪙 0</div>
@@ -629,8 +632,8 @@ input:checked + .toggle-slider:before{transform:translateX(18px);}
 
 <!-- ═══════════ TAB: SETTINGS ═══════════ -->
 <div id="tab-settings" class="hidden" style="display:none;flex-direction:column;flex:1;min-height:0;">
-  <div class="scroll-tab">
-    <h1>Settings ⚙️</h1>
+  <div style="flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:58px 18px 32px;">
+    <h1 style="margin-bottom:16px;">Settings ⚙️</h1>
 
     <!-- ── PROFILE CARD ── -->
     <div class="settings-sec">
