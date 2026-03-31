@@ -1,5 +1,5 @@
-/* Sankalp — संकल्प | Service Worker v1 */
-const CACHE_NAME = 'sankalp-v1';
+/* Sankalp — संकल्प | Service Worker v2 */
+const CACHE_NAME = 'sankalp-v2';
 const ASSETS = [
   './',
   './index.html',
