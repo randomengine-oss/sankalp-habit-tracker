@@ -41,9 +41,11 @@
    BASE
 ═══════════════════════════════════════════ */
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-body{background:var(--bg2);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Helvetica,Arial,sans-serif;margin:0;display:flex;justify-content:center;height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;}
-.app{background:var(--bg);width:100%;max-width:430px;height:100%;position:relative;display:flex;flex-direction:column;box-shadow:0 0 60px rgba(0,0,0,0.2);transition:background .3s;}
-.scroll{flex:1;overflow-y:auto;padding:0 18px 110px;display:flex;flex-direction:column;gap:16px;scrollbar-width:none;}
+html,body{height:100%;margin:0;padding:0;overflow:hidden;background:var(--bg2);}body{color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;}
+.app{background:var(--bg);width:100%;max-width:430px;position:fixed;top:0;bottom:0;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;box-shadow:0 0 60px rgba(0,0,0,0.2);transition:background .3s;overflow:hidden;}
+.scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 18px calc(110px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:16px;scrollbar-width:none;}
+.scroll-tab{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:58px 18px calc(110px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:16px;scrollbar-width:none;}
+.scroll-tab::-webkit-scrollbar{display:none;}
 .scroll::-webkit-scrollbar{display:none;}
 .hidden{display:none!important;}
 h1{margin:0;font-size:29px;font-weight:800;letter-spacing:-0.8px;}
@@ -336,7 +338,7 @@ input:checked + .toggle-slider:before{transform:translateX(18px);}
 /* ═══════════════════════════════════════════
    BOTTOM NAV
 ═══════════════════════════════════════════ */
-.bot-nav{position:absolute;bottom:0;left:0;right:0;padding:0 0 20px;height:80px;background:var(--nav-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;z-index:100;}
+.bot-nav{position:absolute;bottom:0;left:0;right:0;flex-shrink:0;padding:0 0 max(20px, env(safe-area-inset-bottom));height:calc(80px + env(safe-area-inset-bottom));background:var(--nav-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;justify-content:space-around;align-items:center;z-index:100;}
 .nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--nav-off);cursor:pointer;transition:color .2s;width:25%;padding-top:8px;}
 .nav-item svg{width:24px;height:24px;fill:currentColor;transition:transform .2s;}
 .nav-item span{font-size:10px;font-weight:700;letter-spacing:.3px;}
@@ -493,10 +495,10 @@ input:checked + .toggle-slider:before{transform:translateX(18px);}
 </div>
 
 <!-- ═══════════ TAB: TODAY ═══════════ -->
-<div id="tab-today" class="hidden" style="display:flex;flex-direction:column;height:100%;overflow:hidden;">
+<div id="tab-today" class="hidden" style="display:none;flex-direction:column;flex:1;min-height:0;">
 
   <!-- ── STICKY NON-SCROLLING HEADER ── -->
-  <div id="today-sticky" style="flex-shrink:0;background:var(--bg);padding:0 18px 12px;display:flex;flex-direction:column;gap:14px;transition:background .3s;box-shadow:0 2px 12px transparent;" id="today-sticky">
+  <div id="today-sticky" style="flex-shrink:0;background:var(--bg);padding:0 18px 12px;display:flex;flex-direction:column;gap:14px;transition:background .3s;box-shadow:0 2px 12px transparent;">
 
     <!-- Name row -->
     <div style="padding-top:52px;display:flex;justify-content:space-between;align-items:flex-start;">
@@ -541,7 +543,7 @@ input:checked + .toggle-slider:before{transform:translateX(18px);}
   </div>
 
   <!-- ── SCROLLABLE TASK AREA ONLY ── -->
-  <div class="scroll" id="scroll-today" style="padding-top:8px;" onscroll="onTodayScroll(this)">
+  <div class="scroll" id="scroll-today" style="padding-top:8px;padding-left:18px;padding-right:18px;padding-bottom:110px;" onscroll="onTodayScroll(this)">
     <ul class="task-list" id="task-list"></ul>
 
     <div class="ai-box hidden" id="ai-box">
@@ -557,8 +559,8 @@ input:checked + .toggle-slider:before{transform:translateX(18px);}
 </div>
 
 <!-- ═══════════ TAB: ANALYTICS ═══════════ -->
-<div id="tab-analytics" class="hidden" style="display:flex;flex-direction:column;height:100%;">
-  <div class="scroll" style="padding-top:58px;">
+<div id="tab-analytics" class="hidden" style="display:none;flex-direction:column;flex:1;min-height:0;">
+  <div class="scroll-tab">
     <h1>Analytics 📊</h1>
     <div class="analytics-hero">
       <div class="lbl" style="color:rgba(255,255,255,.5);">This Month</div>
@@ -600,8 +602,8 @@ input:checked + .toggle-slider:before{transform:translateX(18px);}
 </div>
 
 <!-- ═══════════ TAB: VAULT ═══════════ -->
-<div id="tab-vault" class="hidden" style="display:flex;flex-direction:column;height:100%;">
-  <div class="scroll" style="padding-top:58px;">
+<div id="tab-vault" class="hidden" style="display:none;flex-direction:column;flex:1;min-height:0;">
+  <div class="scroll-tab">
     <h1>The Vault 🏆</h1>
     <div class="coin-hero">
       <div class="lbl">Total Coins</div>
@@ -626,8 +628,8 @@ input:checked + .toggle-slider:before{transform:translateX(18px);}
 </div>
 
 <!-- ═══════════ TAB: SETTINGS ═══════════ -->
-<div id="tab-settings" class="hidden" style="display:flex;flex-direction:column;height:100%;">
-  <div class="scroll" style="padding-top:58px;">
+<div id="tab-settings" class="hidden" style="display:none;flex-direction:column;flex:1;min-height:0;">
+  <div class="scroll-tab">
     <h1>Settings ⚙️</h1>
 
     <!-- ── PROFILE CARD ── -->
@@ -969,6 +971,7 @@ function finishSetup() {
 function startApp() {
   document.getElementById('bot-nav').style.display = 'flex';
   document.getElementById('tab-today').classList.remove('hidden');
+  document.getElementById('tab-today').style.cssText = 'display:flex;flex-direction:column;flex:1;min-height:0;';
   document.getElementById('display-name').textContent = name;
   document.getElementById('profile-input').value = name;
   document.getElementById('dob-input').value = lv('dob','');
@@ -993,10 +996,16 @@ function startApp() {
 function switchTab(tabId, el) {
   ['today','analytics','vault','settings'].forEach(id => {
     const tab = document.getElementById('tab-'+id);
+    tab.style.display = 'none';
     tab.classList.add('hidden');
     document.getElementById('nav-'+id).classList.remove('active');
   });
-  document.getElementById('tab-'+tabId).classList.remove('hidden');
+  const activeTab = document.getElementById('tab-'+tabId);
+  activeTab.style.display = 'flex';
+  activeTab.style.flexDirection = 'column';
+  activeTab.style.flex = '1';
+  activeTab.style.minHeight = '0';
+  activeTab.classList.remove('hidden');
   el.classList.add('active');
   if (tabId === 'vault') updateCoinUI();
   if (tabId === 'analytics') renderAnalytics();
